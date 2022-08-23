@@ -22,7 +22,6 @@ internal class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        FirebaseApp.initializeApp(this)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.model = viewModel
@@ -40,6 +39,12 @@ internal class LoginActivity : AppCompatActivity() {
 
     private fun initSpinner() {
         binding.spinnerView.apply {
+            setOnSpinnerItemSelectedListener<IconSpinnerItem> { _, _, _, selectedItem ->
+                if (selectedItem.text == "Doctor")
+                    viewModel.setUserType(isDoctorUserType = true)
+                else
+                    viewModel.setUserType(isDoctorUserType = false)
+            }
             setSpinnerAdapter(SpinnerAdapter(this))
             setItems(
                 arrayListOf(
@@ -92,6 +97,13 @@ internal class LoginActivity : AppCompatActivity() {
         }
         binding.ivGoogle.setOnClickListener {
             showToast("Feature not yet built")
+        }
+        binding.btPerformAuth.setOnClickListener {
+            if (binding.spinnerView.selectedIndex == -1) {
+                showToast("Please select user type")
+                return@setOnClickListener
+            }
+            viewModel.authenticateWithEmailAndPassword()
         }
 
     }

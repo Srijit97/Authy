@@ -20,4 +20,8 @@ data class Authy(
     val authResult: (AuthResult) -> Unit
 ) : Serializable
 
-data class UserAuthDetails(val credential: AuthCredential,val user: FirebaseUser)
+sealed class UserLoginStatus {
+    object Patient : UserLoginStatus()
+    object Doctor : UserLoginStatus()
+    object NotLoggedIn : UserLoginStatus()
+}
