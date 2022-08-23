@@ -71,7 +71,7 @@ internal class LoginActivity : AppCompatActivity() {
                     showToast(it.errorMessage)
                 }
                 is LoginResult.LoginSuccessful -> {
-                    authy?.authResult?.invoke(AuthResult.LoginSuccess(it.user,it.userLoginStatus))
+                    authy?.authResult?.invoke(AuthResult.LoginSuccess(user = it.user,it.userLoginStatus))
                     showToast("Authentication successful")
                     finish()
                 }
