@@ -19,12 +19,17 @@ sealed class AuthResult {
         val user: FirebaseUser,
         val userLoginStatus: UserLoginStatus
     ) : AuthResult()
+
     object LoginError : AuthResult()
 }
 
 data class Authy(
     val data: Map<String, Any>,
     val authResult: (AuthResult) -> Unit
+) : Serializable
+
+data class UserLoginStatusCallback(
+    val callback: (UserLoginStatus) -> Unit
 ) : Serializable
 
 sealed class UserLoginStatus {

@@ -14,6 +14,7 @@ import com.srijit.authy_sdk.ui.LoginActivity
 import com.srijit.authy_sdk.utils.Authy
 import com.srijit.authy_sdk.utils.Constants
 import com.srijit.authy_sdk.utils.UserLoginStatus
+import com.srijit.authy_sdk.utils.UserLoginStatusCallback
 
 class AuthySdk {
     companion object {
@@ -26,7 +27,7 @@ class AuthySdk {
 
         fun getUserLoginStatus(
             context: Context,
-            userLoginStatusCallback: (UserLoginStatus) -> Unit
+            userLoginStatusCallback: UserLoginStatusCallback
         ) {
             var isDoctor = false
             FirebaseApp.initializeApp(context)
@@ -34,7 +35,7 @@ class AuthySdk {
             val firebaseDatabase = Firebase.database.getReference(Constants.USERS_TABLE)
 
             if (fireBaseAuth.currentUser == null)
-                userLoginStatusCallback.invoke(UserLoginStatus.NotLoggedIn)
+                userLoginStatusCallback.callback.invoke(UserLoginStatus.NotLoggedIn)
             else {
                 val userId = fireBaseAuth.currentUser?.uid
 
@@ -46,9 +47,9 @@ class AuthySdk {
                                     isDoctor = true
                             }
                             if (isDoctor)
-                                userLoginStatusCallback.invoke(UserLoginStatus.Doctor)
+                                userLoginStatusCallback.callback.invoke(UserLoginStatus.Doctor)
                             else
-                                userLoginStatusCallback.invoke(UserLoginStatus.Patient)
+                                userLoginStatusCallback.callback.invoke(UserLoginStatus.Patient)
                         }
 
                         override fun onCancelled(error: DatabaseError) {
