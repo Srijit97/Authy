@@ -17,13 +17,15 @@ internal sealed class LoginResult {
     data class LoginError(val errorMessage: String) : LoginResult()
 }
 
-@Parcelize
+
 sealed class AuthResult : Parcelable {
+    @Parcelize
     data class LoginSuccess(
         val user: FirebaseUser,
         val userLoginStatus: UserLoginStatus
     ) : AuthResult()
 
+    @Parcelize
     object LoginError : AuthResult(), Serializable
 }
 
@@ -37,9 +39,14 @@ data class UserLoginStatusCallback(
     val callback: (UserLoginStatus) -> Unit
 ) : Parcelable
 
-@Parcelize
+
 sealed class UserLoginStatus : Parcelable {
+    @Parcelize
     object Patient : UserLoginStatus()
+
+    @Parcelize
     object Doctor : UserLoginStatus()
+
+    @Parcelize
     object NotLoggedIn : UserLoginStatus()
 }
