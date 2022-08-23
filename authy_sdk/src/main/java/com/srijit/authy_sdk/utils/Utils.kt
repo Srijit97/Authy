@@ -23,10 +23,10 @@ sealed class AuthResult : Parcelable {
     data class LoginSuccess(
         val user: FirebaseUser,
         val userLoginStatus: UserLoginStatus
-    ) : AuthResult()
+    ) : AuthResult(),Parcelable
 
     @Parcelize
-    object LoginError : AuthResult(), Serializable
+    object LoginError : AuthResult()
 }
 
 @Parcelize
