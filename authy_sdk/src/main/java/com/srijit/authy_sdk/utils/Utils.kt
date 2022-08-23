@@ -6,7 +6,10 @@ import java.io.Serializable
 
 internal sealed class LoginResult {
     object NoResult : LoginResult()
-    data class LoginSuccessful(val user: FirebaseUser) : LoginResult()
+    data class LoginSuccessful(
+        val user: FirebaseUser,
+        val userLoginStatus: UserLoginStatus
+    ) : LoginResult()
     data class LoginError(val errorMessage: String) : LoginResult()
 }
 

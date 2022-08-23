@@ -5,10 +5,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.srijit.authy_sdk.utils.Constants
 import com.srijit.authy_sdk.utils.LoginResult
+import com.srijit.authy_sdk.utils.UserLoginStatus
 
 internal class LoginViewModel : ViewModel() {
     private val _isLoginFlow = MutableLiveData(true)
@@ -35,7 +39,14 @@ internal class LoginViewModel : ViewModel() {
                     .addOnSuccessListener {
                         it.user?.let { user ->
                             addUserToDatabase(user)
-                            _authenticationSuccessful.value = LoginResult.LoginSuccessful(user)
+                            val userLoginStatus =
+                                if (isDoctor)
+                                    UserLoginStatus.Doctor
+                                else
+                                    UserLoginStatus.Patient
+
+                            _authenticationSuccessful.value =
+                                LoginResult.LoginSuccessful(user, userLoginStatus)
                         }
                     }.addOnFailureListener { exception ->
                         exception.message?.let {
@@ -47,7 +58,7 @@ internal class LoginViewModel : ViewModel() {
                 auth.signInWithEmailAndPassword(this.emailId.value!!, this.password.value!!)
                     .addOnSuccessListener {
                         it.user?.let { user ->
-                            _authenticationSuccessful.value = LoginResult.LoginSuccessful(user)
+                            getUserType(user)
                         }
                     }.addOnFailureListener { exception ->
                         exception.message?.let {
@@ -58,6 +69,29 @@ internal class LoginViewModel : ViewModel() {
             }
 
         }
+    }
+
+    private fun getUserType(user: FirebaseUser) {
+        val database = Firebase.database.getReference(Constants.USERS_TABLE)
+        database.child(Constants.DOCTORS_TABLE)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    snapshot.children.forEach {
+                        if (it.value == user.uid)
+                            isDoctor = true
+                    }
+                    if (isDoctor)
+                        _authenticationSuccessful.value = LoginResult.LoginSuccessful(user,UserLoginStatus.Doctor)
+                    else
+                        _authenticationSuccessful.value = LoginResult.LoginSuccessful(user,UserLoginStatus.Patient)
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                }
+
+            })
+
+
     }
 
     private fun addUserToDatabase(user: FirebaseUser) {
