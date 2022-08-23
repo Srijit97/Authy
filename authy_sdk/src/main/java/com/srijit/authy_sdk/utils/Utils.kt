@@ -10,11 +10,15 @@ internal sealed class LoginResult {
         val user: FirebaseUser,
         val userLoginStatus: UserLoginStatus
     ) : LoginResult()
+
     data class LoginError(val errorMessage: String) : LoginResult()
 }
 
 sealed class AuthResult {
-    data class LoginSuccess(val user: FirebaseUser) : AuthResult()
+    data class LoginSuccess(
+        val user: FirebaseUser,
+        val userLoginStatus: UserLoginStatus
+    ) : AuthResult()
     object LoginError : AuthResult()
 }
 

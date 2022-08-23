@@ -4,8 +4,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.firebase.FirebaseApp
-import com.skydoves.powerspinner.IconSpinnerAdapter
 import com.skydoves.powerspinner.IconSpinnerItem
 import com.srijit.authy_sdk.R
 import com.srijit.authy_sdk.databinding.ActivityLoginBinding
@@ -73,7 +71,7 @@ internal class LoginActivity : AppCompatActivity() {
                     showToast(it.errorMessage)
                 }
                 is LoginResult.LoginSuccessful -> {
-                    authy?.authResult?.invoke(AuthResult.LoginSuccess(it.user))
+                    authy?.authResult?.invoke(AuthResult.LoginSuccess(it.user,it.userLoginStatus))
                     showToast("Authentication successful")
                     finish()
                 }
