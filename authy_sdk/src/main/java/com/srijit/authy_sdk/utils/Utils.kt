@@ -1,7 +1,10 @@
 package com.srijit.authy_sdk.utils
 
+import android.os.Parcelable
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseUser
+import kotlinx.parcelize.Parcelize
+import kotlinx.parcelize.RawValue
 import java.io.Serializable
 
 internal sealed class LoginResult {
@@ -14,25 +17,29 @@ internal sealed class LoginResult {
     data class LoginError(val errorMessage: String) : LoginResult()
 }
 
-sealed class AuthResult {
+@Parcelize
+sealed class AuthResult : Parcelable {
     data class LoginSuccess(
         val user: FirebaseUser,
         val userLoginStatus: UserLoginStatus
     ) : AuthResult()
 
-    object LoginError : AuthResult()
+    object LoginError : AuthResult(), Serializable
 }
 
+@Parcelize
 data class Authy(
-    val data: Map<String, Any>,
+    val data: @RawValue Map<String, Any>,
     val authResult: (AuthResult) -> Unit
-) : Serializable
+) : Parcelable
 
+@Parcelize
 data class UserLoginStatusCallback(
     val callback: (UserLoginStatus) -> Unit
-) : Serializable
+) : Parcelable
 
-sealed class UserLoginStatus {
+@Parcelize
+sealed class UserLoginStatus : Parcelable {
     object Patient : UserLoginStatus()
     object Doctor : UserLoginStatus()
     object NotLoggedIn : UserLoginStatus()

@@ -5,9 +5,6 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.databinding.BindingAdapter
 
-
-
-
 fun Context.showToast(message: String) {
     Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
 }
