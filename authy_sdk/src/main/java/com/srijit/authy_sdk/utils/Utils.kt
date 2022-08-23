@@ -29,7 +29,6 @@ sealed class AuthResult : Parcelable {
 
 @Parcelize
 data class Authy(
-    val data: @RawValue Map<String, Any>,
     val authResult: (AuthResult) -> Unit
 ) : Parcelable
 

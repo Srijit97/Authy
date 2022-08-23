@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         findViewById<TextView>(R.id.tv_start).setOnClickListener {
-            AuthySdk.startAuthFlow(this, Authy(emptyMap()) {
+            AuthySdk.startAuthFlow(this, Authy {
                 when (it) {
                     is AuthResult.LoginError -> Log.d("msg1", "error")
                     is AuthResult.LoginSuccess -> Log.d("msg1", "success$it")
