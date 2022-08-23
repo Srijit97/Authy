@@ -1,0 +1,127 @@
+{
+  "project_info": {
+    "project_number": "388666856301",
+    "firebase_url": "https://chatterbot-f993f-default-rtdb.firebaseio.com",
+    "project_id": "chatterbot-f993f",
+    "storage_bucket": "chatterbot-f993f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:388666856301:android:102c7c9b3226d5f26e0064",
+        "android_client_info": {
+          "package_name": "com.shibangi.bear"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "388666856301-ktcnuj919du3qhto96o31cjcecacgajt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAUsminyUcnG0KTXj0jyis6TQqQRZ69P5E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "388666856301-ktcnuj919du3qhto96o31cjcecacgajt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:388666856301:android:f0f118dffed0c87d6e0064",
+        "android_client_info": {
+          "package_name": "com.srijit.authy_sdk"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "388666856301-ktcnuj919du3qhto96o31cjcecacgajt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAUsminyUcnG0KTXj0jyis6TQqQRZ69P5E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "388666856301-ktcnuj919du3qhto96o31cjcecacgajt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:388666856301:android:b6487c00f4b53d3e6e0064",
+        "android_client_info": {
+          "package_name": "com.srijit.chat_sdk"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "388666856301-ktcnuj919du3qhto96o31cjcecacgajt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAUsminyUcnG0KTXj0jyis6TQqQRZ69P5E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "388666856301-ktcnuj919du3qhto96o31cjcecacgajt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:388666856301:android:4204456151c85fda6e0064",
+        "android_client_info": {
+          "package_name": "com.srijit.loginator_sdk"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "388666856301-ktcnuj919du3qhto96o31cjcecacgajt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAUsminyUcnG0KTXj0jyis6TQqQRZ69P5E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "388666856301-ktcnuj919du3qhto96o31cjcecacgajt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
