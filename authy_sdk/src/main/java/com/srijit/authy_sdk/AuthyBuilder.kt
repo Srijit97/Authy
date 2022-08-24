@@ -2,6 +2,7 @@ package com.srijit.authy_sdk
 
 import android.content.Context
 import android.content.Intent
+import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -25,7 +26,8 @@ class AuthySdk {
             FirebaseApp.initializeApp(context)
             val intent = Intent(context, LoginActivity::class.java)
             intent.putExtra("authy", authy)
-            //context.startActivity(intent)
+            intent.flags = FLAG_ACTIVITY_NEW_TASK
+            context.startActivity(intent)
         }
 
         fun getUserLoginStatus(
