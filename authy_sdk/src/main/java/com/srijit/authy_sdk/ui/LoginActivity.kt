@@ -1,8 +1,8 @@
 package com.srijit.authy_sdk.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.skydoves.powerspinner.IconSpinnerItem
 import com.srijit.authy_sdk.R
@@ -10,9 +10,7 @@ import com.srijit.authy_sdk.databinding.ActivityLoginBinding
 import com.srijit.authy_sdk.utils.AuthResult
 import com.srijit.authy_sdk.utils.Authy
 import com.srijit.authy_sdk.utils.LoginResult
-import com.srijit.authy_sdk.utils.Random
 import com.srijit.authy_sdk.utils.UserLoginStatus
-import com.srijit.authy_sdk.utils.UserLoginStatusCallback
 import com.srijit.authy_sdk.utils.showToast
 
 internal class LoginActivity : AppCompatActivity() {
@@ -36,7 +34,6 @@ internal class LoginActivity : AppCompatActivity() {
 
     private fun setCallback() {
         authy = intent.getParcelableExtra("authy") as? Authy
-        val random = intent.getParcelableExtra("random") as? Random
     }
 
     private fun initSpinner() {
@@ -75,7 +72,12 @@ internal class LoginActivity : AppCompatActivity() {
                     showToast(it.errorMessage)
                 }
                 is LoginResult.LoginSuccessful -> {
-                    authy?.authResult?.invoke(AuthResult.LoginSuccess(it.userLoginStatus))
+                    when(it.userLoginStatus){
+                        UserLoginStatus.Doctor -> authy?.authResult?.invoke(AuthResult.DoctorLoggedIn)
+                        UserLoginStatus.NotLoggedIn -> Unit
+                        UserLoginStatus.Patient -> authy?.authResult?.invoke(AuthResult.PatientLoggedIn)
+                    }
+
                     showToast("Authentication successful")
                     finish()
                 }

@@ -18,13 +18,9 @@ internal sealed class LoginResult {
 }
 
 
-sealed class AuthResult : Parcelable {
-    @Parcelize
-    data class LoginSuccess(
-        val userLoginStatus: UserLoginStatus
-    ) : AuthResult()
-
-    @Parcelize
+sealed class AuthResult {
+    object PatientLoggedIn : AuthResult()
+    object DoctorLoggedIn : AuthResult()
     object LoginError : AuthResult()
 }
 
@@ -32,16 +28,6 @@ sealed class AuthResult : Parcelable {
 data class Authy(
     val authResult: (AuthResult) -> Unit
 ) : Parcelable
-
-@Parcelize
-data class Random(
-    val authResult: (abc) -> Unit
-) : Parcelable
-
-sealed class abc{
-    object a:abc()
-    object b:abc()
-}
 
 @Parcelize
 data class UserLoginStatusCallback(

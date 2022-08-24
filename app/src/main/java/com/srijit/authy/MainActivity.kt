@@ -16,11 +16,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         findViewById<TextView>(R.id.tv_start).setOnClickListener {
-            AuthySdk.startAuthFlow(this, UserLoginStatusCallback {
-                when (it) {
-                    UserLoginStatus.Doctor -> Log.d("msg1", "doctor")
-                    UserLoginStatus.NotLoggedIn -> Log.d("msg1", "not logged in")
-                    UserLoginStatus.Patient -> Log.d("msg1", "patient")
+            AuthySdk.startAuthFlow(this, Authy {
+                when(it){
+                    AuthResult.DoctorLoggedIn -> Unit
+                    AuthResult.LoginError -> Unit
+                    AuthResult.PatientLoggedIn -> Unit
                 }
             })
 
