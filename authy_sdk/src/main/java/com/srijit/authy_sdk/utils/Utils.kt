@@ -35,8 +35,13 @@ data class Authy(
 
 @Parcelize
 data class Random(
-    val authResult: (String) -> Unit
+    val authResult: (abc) -> Unit
 ) : Parcelable
+
+sealed class abc{
+    object a:abc()
+    object b:abc()
+}
 
 @Parcelize
 data class UserLoginStatusCallback(
