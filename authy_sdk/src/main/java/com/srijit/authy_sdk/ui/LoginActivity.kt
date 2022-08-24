@@ -10,6 +10,7 @@ import com.srijit.authy_sdk.databinding.ActivityLoginBinding
 import com.srijit.authy_sdk.utils.AuthResult
 import com.srijit.authy_sdk.utils.Authy
 import com.srijit.authy_sdk.utils.LoginResult
+import com.srijit.authy_sdk.utils.Random
 import com.srijit.authy_sdk.utils.UserLoginStatus
 import com.srijit.authy_sdk.utils.UserLoginStatusCallback
 import com.srijit.authy_sdk.utils.showToast
@@ -35,6 +36,7 @@ internal class LoginActivity : AppCompatActivity() {
 
     private fun setCallback() {
         authy = intent.getParcelableExtra("authy") as? Authy
+        val random = intent.getParcelableExtra("random") as? Random
     }
 
     private fun initSpinner() {

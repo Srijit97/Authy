@@ -14,6 +14,7 @@ import com.google.firebase.ktx.Firebase
 import com.srijit.authy_sdk.ui.LoginActivity
 import com.srijit.authy_sdk.utils.Authy
 import com.srijit.authy_sdk.utils.Constants
+import com.srijit.authy_sdk.utils.Random
 import com.srijit.authy_sdk.utils.UserLoginStatus
 import com.srijit.authy_sdk.utils.UserLoginStatusCallback
 
@@ -21,11 +22,12 @@ class AuthySdk {
     companion object {
         fun startAuthFlow(
             context: Context,
-            authy: Authy
+            random: Random
         ) {
             FirebaseApp.initializeApp(context)
             val intent = Intent(context, LoginActivity::class.java)
-            intent.putExtra("authy", authy)
+            //intent.putExtra("authy", authy)
+            intent.putExtra("random",random)
             intent.flags = FLAG_ACTIVITY_NEW_TASK
             context.startActivity(intent)
         }

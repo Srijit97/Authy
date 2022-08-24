@@ -34,6 +34,11 @@ data class Authy(
 ) : Parcelable
 
 @Parcelize
+data class Random(
+    val authResult: (String) -> Unit
+) : Parcelable
+
+@Parcelize
 data class UserLoginStatusCallback(
     val callback: (UserLoginStatus) -> Unit
 ) : Parcelable
