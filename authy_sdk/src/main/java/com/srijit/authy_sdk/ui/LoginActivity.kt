@@ -10,13 +10,15 @@ import com.srijit.authy_sdk.databinding.ActivityLoginBinding
 import com.srijit.authy_sdk.utils.AuthResult
 import com.srijit.authy_sdk.utils.Authy
 import com.srijit.authy_sdk.utils.LoginResult
+import com.srijit.authy_sdk.utils.UserLoginStatus
+import com.srijit.authy_sdk.utils.UserLoginStatusCallback
 import com.srijit.authy_sdk.utils.showToast
 
 internal class LoginActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityLoginBinding
     private val viewModel by viewModels<LoginViewModel>()
-    var authy: Authy? = null
+    var authy: UserLoginStatusCallback? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +34,7 @@ internal class LoginActivity : AppCompatActivity() {
     }
 
     private fun setCallback() {
-        authy = intent.getParcelableExtra("authy") as? Authy
+        authy = intent.getParcelableExtra("authy") as? UserLoginStatusCallback
     }
 
     private fun initSpinner() {
@@ -67,11 +69,12 @@ internal class LoginActivity : AppCompatActivity() {
         viewModel.authenticationSuccessful.observe(this) {
             when (it) {
                 is LoginResult.LoginError -> {
-                    authy?.authResult?.invoke(AuthResult.LoginError)
+                    authy?.callback?.invoke(UserLoginStatus.NotLoggedIn)
                     showToast(it.errorMessage)
                 }
                 is LoginResult.LoginSuccessful -> {
-                    authy?.authResult?.invoke(AuthResult.LoginSuccess(it.userLoginStatus))
+
+                    authy?.callback?.invoke(it.userLoginStatus)
                     showToast("Authentication successful")
                     finish()
                 }
