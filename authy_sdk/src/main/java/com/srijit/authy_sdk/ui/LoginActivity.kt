@@ -18,7 +18,7 @@ internal class LoginActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityLoginBinding
     private val viewModel by viewModels<LoginViewModel>()
-    var authy: UserLoginStatusCallback? = null
+    var authy: Authy? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +34,7 @@ internal class LoginActivity : AppCompatActivity() {
     }
 
     private fun setCallback() {
-        authy = intent.getParcelableExtra("authy") as? UserLoginStatusCallback
+        authy = intent.getParcelableExtra("authy") as? Authy
     }
 
     private fun initSpinner() {
@@ -69,12 +69,11 @@ internal class LoginActivity : AppCompatActivity() {
         viewModel.authenticationSuccessful.observe(this) {
             when (it) {
                 is LoginResult.LoginError -> {
-                    authy?.callback?.invoke(UserLoginStatus.NotLoggedIn)
+                    authy?.authResult?.invoke(AuthResult.LoginError)
                     showToast(it.errorMessage)
                 }
                 is LoginResult.LoginSuccessful -> {
-
-                    authy?.callback?.invoke(it.userLoginStatus)
+                    authy?.authResult?.invoke(AuthResult.LoginSuccess(it.userLoginStatus))
                     showToast("Authentication successful")
                     finish()
                 }
@@ -90,13 +89,13 @@ internal class LoginActivity : AppCompatActivity() {
         binding.tvSignUp.setOnClickListener {
             viewModel.setFlow(isLogin = false)
         }
-        binding.ivGoogle.setOnClickListener {
+        binding.ivFacebook.setOnClickListener {
             showToast("Feature not yet built")
         }
         binding.ivGoogle.setOnClickListener {
             showToast("Feature not yet built")
         }
-        binding.ivGoogle.setOnClickListener {
+        binding.ivPhone.setOnClickListener {
             showToast("Feature not yet built")
         }
         binding.btPerformAuth.setOnClickListener {

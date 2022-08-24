@@ -20,11 +20,11 @@ class AuthySdk {
     companion object {
         fun startAuthFlow(
             context: Context,
-            userLoginStatusCallback: UserLoginStatusCallback
+            authy: Authy
         ) {
             FirebaseApp.initializeApp(context)
             val intent = Intent(context, LoginActivity::class.java)
-            intent.putExtra("authy", userLoginStatusCallback)
+            intent.putExtra("authy", authy)
             context.startActivity(intent)
         }
 
