@@ -25,7 +25,7 @@ class AuthySdk {
             FirebaseApp.initializeApp(context)
             val intent = Intent(context, LoginActivity::class.java)
             intent.putExtra("authy", authy)
-            context.startActivity(intent)
+            //context.startActivity(intent)
         }
 
         fun getUserLoginStatus(
