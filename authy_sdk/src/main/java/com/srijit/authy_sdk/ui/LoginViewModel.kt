@@ -18,6 +18,9 @@ internal class LoginViewModel : ViewModel() {
     private val _isLoginFlow = MutableLiveData(true)
     val isLoginFLow = _isLoginFlow as LiveData<Boolean>
 
+    private val _loaderVisibility = MutableLiveData(false)
+    val loaderVisibility = _loaderVisibility as LiveData<Boolean>
+
     var isDoctor = false
 
     private val _authenticationSuccessful = MutableLiveData<LoginResult>(LoginResult.NoResult)
@@ -33,25 +36,24 @@ internal class LoginViewModel : ViewModel() {
     }
 
     fun authenticateWithEmailAndPassword() {
+        _loaderVisibility.value = true
         isLoginFLow.value?.let {
             if (!it) {
                 auth.createUserWithEmailAndPassword(this.emailId.value!!, this.password.value!!)
                     .addOnSuccessListener {
                         it.user?.let { user ->
-                            addUserToDatabase(user)
                             val userLoginStatus =
                                 if (isDoctor)
                                     UserLoginStatus.Doctor
                                 else
                                     UserLoginStatus.Patient
-
-                            _authenticationSuccessful.value =
-                                LoginResult.LoginSuccessful(userLoginStatus)
+                            addUserToDatabase(user, userLoginStatus)
                         }
                     }.addOnFailureListener { exception ->
                         exception.message?.let {
                             _authenticationSuccessful.value =
                                 LoginResult.LoginError(errorMessage = it)
+                            _loaderVisibility.value = false
                         }
                     }
             } else {
@@ -64,6 +66,7 @@ internal class LoginViewModel : ViewModel() {
                         exception.message?.let {
                             _authenticationSuccessful.value =
                                 LoginResult.LoginError(errorMessage = it)
+                            _loaderVisibility.value = false
                         }
                     }
             }
@@ -81,9 +84,11 @@ internal class LoginViewModel : ViewModel() {
                             isDoctor = true
                     }
                     if (isDoctor)
-                        _authenticationSuccessful.value = LoginResult.LoginSuccessful(UserLoginStatus.Doctor)
+                        _authenticationSuccessful.value =
+                            LoginResult.LoginSuccessful(UserLoginStatus.Doctor)
                     else
-                        _authenticationSuccessful.value = LoginResult.LoginSuccessful(UserLoginStatus.Patient)
+                        _authenticationSuccessful.value =
+                            LoginResult.LoginSuccessful(UserLoginStatus.Patient)
                 }
 
                 override fun onCancelled(error: DatabaseError) {
@@ -94,13 +99,17 @@ internal class LoginViewModel : ViewModel() {
 
     }
 
-    private fun addUserToDatabase(user: FirebaseUser) {
+    private fun addUserToDatabase(user: FirebaseUser, userLoginStatus: UserLoginStatus) {
         val database = Firebase.database.getReference(Constants.USERS_TABLE)
 
         if (isDoctor)
             database.child(Constants.DOCTORS_TABLE).push().setValue(user.uid)
         else
             database.child(Constants.PATIENTS_TABLE).push().setValue(user.uid)
+
+        _authenticationSuccessful.value =
+            LoginResult.LoginSuccessful(userLoginStatus)
+        _loaderVisibility.value = false
     }
 
     fun setUserType(isDoctorUserType: Boolean) {

@@ -4,6 +4,7 @@
         <variable
             name="model"
             type="com.srijit.authy_sdk.ui.LoginViewModel" />
+        <import type="android.view.View"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -15,6 +16,32 @@
         android:fitsSystemWindows="true"
         tools:context=".activities.AuthFragment">
 
+        <androidx.cardview.widget.CardView
+            android:id="@+id/loading_view"
+            android:layout_width="150dp"
+            android:visibility="@{model.loaderVisibility ? View.VISIBLE : View.GONE,default = gone}"
+            app:cardElevation="5dp"
+            android:layout_height="150dp"
+            app:cardBackgroundColor="@android:color/transparent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <me.ibrahimsn.lib.CirclesLoadingView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:animDelay="150"
+                app:animDistance="10dp"
+                app:animDuration="500"
+                app:animInterpolator="accelerateDecelerate"
+                app:circleMargin="8dp"
+                app:circleRadius="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.cardview.widget.CardView>
+
         <LinearLayout
             android:id="@+id/ll_header"
             android:layout_width="wrap_content"
@@ -24,7 +51,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.1">
+            app:layout_constraintVertical_bias="0.05">
 
             <TextView
                 android:id="@+id/tv_login"
@@ -61,7 +88,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.5"
+            app:layout_constraintVertical_bias="0.4"
             app:layout_constraintWidth_percent="0.8">
 
             <com.skydoves.powerspinner.PowerSpinnerView
@@ -197,24 +224,24 @@
 
             <ImageView
                 android:id="@+id/iv_facebook"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:layout_weight="1"
                 android:padding="5dp"
                 android:src="@drawable/ic_facebook" />
 
             <ImageView
                 android:id="@+id/iv_google"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:layout_weight="1"
                 android:padding="5dp"
                 android:src="@drawable/ic_google" />
 
             <ImageView
                 android:id="@+id/iv_phone"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:layout_weight="1"
                 android:padding="5dp"
                 android:src="@drawable/ic_phone" />
