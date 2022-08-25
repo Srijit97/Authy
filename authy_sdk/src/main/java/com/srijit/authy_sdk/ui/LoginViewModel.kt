@@ -46,7 +46,7 @@ internal class LoginViewModel : ViewModel() {
                                     UserLoginStatus.Patient
 
                             _authenticationSuccessful.value =
-                                LoginResult.LoginSuccessful(user, userLoginStatus)
+                                LoginResult.LoginSuccessful(userLoginStatus)
                         }
                     }.addOnFailureListener { exception ->
                         exception.message?.let {
@@ -81,9 +81,9 @@ internal class LoginViewModel : ViewModel() {
                             isDoctor = true
                     }
                     if (isDoctor)
-                        _authenticationSuccessful.value = LoginResult.LoginSuccessful(user,UserLoginStatus.Doctor)
+                        _authenticationSuccessful.value = LoginResult.LoginSuccessful(UserLoginStatus.Doctor)
                     else
-                        _authenticationSuccessful.value = LoginResult.LoginSuccessful(user,UserLoginStatus.Patient)
+                        _authenticationSuccessful.value = LoginResult.LoginSuccessful(UserLoginStatus.Patient)
                 }
 
                 override fun onCancelled(error: DatabaseError) {

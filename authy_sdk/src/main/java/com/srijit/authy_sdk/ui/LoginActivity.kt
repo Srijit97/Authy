@@ -33,7 +33,7 @@ internal class LoginActivity : AppCompatActivity() {
     }
 
     private fun setCallback() {
-        authy = intent.getParcelableExtra("authy") as? Authy
+        authy = intent.getSerializableExtra("authy") as? Authy
     }
 
     private fun initSpinner() {
